@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Aniket Thapa — Contact</title>
+    <!-- SEO -->
+    <meta
+      name="description"
+      content="Get in touch with Aniket Thapa for collaboration, hiring, or tech inquiries. I'm available on email, LinkedIn, GitHub, and WhatsApp."
+    />
+    <meta
+      name="keywords"
+      content="Aniket Thapa, Contact, Email, GitHub, LinkedIn, Web Developer"
+    />
+    <meta name="author" content="Aniket Thapa" />
+
+    <!-- Styles & Icons -->
+    <link rel="stylesheet" href="styles.css" />
+    <script
+      src="https://kit.fontawesome.com/9ca9aa7819.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+    <div class="contact-main-container main-container">
+      <!-- NAVIGATION SECTION -->
+      <header class="nav-container">
+        <div class="nav-left">
+          <a href="/">Aniket<span class="highlight">.</span></a>
+        </div>
+        <nav class="nav-right">
+          <a href="/">Home</a>
+          <a href="about.html">About</a>
+          <a href="skill.html">Skills</a>
+          <a href="project.html">Projects</a>
+          <a href="contact.html" class="nav-link-color active">Contact</a>
+        </nav>
+        <div class="hamburger-menu">
+          <i class="fa-solid fa-bars-staggered"></i>
+        </div>
+
+        <!-- Mobile Nav -->
+        <div class="side-nav">
+          <div class="nav-left-new">
+            <a href="/">Aniket<span class="highlight">.</span></a>
+          </div>
+          <div class="side-nav-close">
+            <i class="fa-solid fa-xmark"></i>
+          </div>
+
+          <nav class="side-nav-links">
+            <a
+              href="https://aniket-thapa.github.io/portfolio/"
+              class="nav-link-color active"
+              >Home</a
+            >
+            <a href="about.html">About</a>
+            <a href="skill.html">Skills</a>
+            <a href="project.html">Projects</a>
+            <a href="contact.html">Contact</a>
+          </nav>
+        </div>
+      </header>
+
+      <!-- CONTACT SECTION -->
+      <section class="contact-section">
+        <h1>Contact Me</h1>
+        <div class="contact-container">
+          <div class="contact-form">
+            <form id="contact-form" onsubmit="return validateForm()">
+              <label for="name">Name</label>
+              <input type="text" id="name" name="name" required />
+              <label for="email">Email</label>
+              <span id="emailError"></span>
+              <input type="email" id="email" name="email" required />
+              <label for="message">Message</label>
+              <textarea
+                id="message"
+                name="message"
+                rows="3"
+                required
+              ></textarea>
+              <button type="submit">Send Message</button>
+            </form>
+            <!-- ********************************************* -->
+            <div id="response" class="response"></div>
+            <!-- ********************************************* -->
+          </div>
+          <div class="contact-details">
+            <h2>Let's Connect</h2>
+            <p>
+              Feel free to reach out to me through any of the platforms below:
+            </p>
+            <div class="social-links">
+              <a href="https://wa.me/+919103315277" target="_blank">
+                <i class="fab fa-whatsapp"></i> WhatsApp
+              </a>
+              <a
+                href="https://www.linkedin.com/in/aniket-thapa"
+                target="_blank"
+              >
+                <i class="fab fa-linkedin"></i> LinkedIn
+              </a>
+              <a href="https://github.com/aniket-thapa" target="_blank">
+                <i class="fab fa-github"></i> GitHub
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- FOOTER SECTION -->
+      <footer class="footer-container">
+        <div class="footer-section">
+          <p>Let’s connect!</p>
+          <p>
+            <i class="fa-solid fa-envelope"></i>
+            <a href="mailto:aniketthapa.dev@gmail.com"
+              >aniketthapa.dev@gmail.com</a
+            >
+          </p>
+          <p>&copy; 2024 Aniket Thapa</p>
+        </div>
+      </footer>
+    </div>
+    <script src="script.js"></script>
+    <script>
+      // Form Submission //
+      document
+        .getElementById('contact-form')
+        .addEventListener('submit', function (event) {
+          event.preventDefault(); // Prevent the default form submission
+
+          var form = event.target;
+          var formData = new FormData(form);
+
+          fetch('https://formspree.io/f/xbjnnzlj', {
+            method: 'POST',
+            headers: {
+              Accept: 'application/json',
+            },
+            body: formData,
+          })
+            .then((response) => {
+              var responseDiv = document.getElementById('response');
+              if (response.ok) {
+                responseDiv.innerHTML =
+                  '<p class="success">Message successfully sent!</p>';
+                form.reset();
+              } else {
+                responseDiv.innerHTML =
+                  '<p class="error">Failed to send message. Please try again later.</p>';
+              }
+            })
+            .catch((error) => {
+              var responseDiv = document.getElementById('response');
+              responseDiv.innerHTML =
+                '<p class="error">An error occurred. Please try again later.</p>';
+            });
+        });
+
+      // Form Validation //
+      function validateForm() {
+        var email = document.getElementById('email').value;
+
+        if (email == '') {
+          var emailError = document.getElementById('emailError');
+          emailError.innerText = '** Email cannot be empty. **';
+          emailError.style.fontSize = '16px';
+          emailError.style.fontWeight = '200';
+          emailError.style.color = 'red';
+          return false;
+        } else {
+          document.getElementById('emailError').innerText = '';
+        }
+
+        var emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+        if (!email.match(emailPattern)) {
+          var emailError = document.getElementById('emailError');
+          emailError.innerText = '** Please enter a valid email address. **';
+          emailError.style.fontSize = '16px';
+          emailError.style.fontWeight = '200';
+          emailError.style.color = 'red';
+          return false;
+        } else {
+          document.getElementById('emailError').innerText = '';
+        }
+
+        return true;
+      }
+    </script>
+  </body>
+</html>
